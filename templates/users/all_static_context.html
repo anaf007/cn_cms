@@ -1,0 +1,67 @@
+
+{% extends "users/base.html" %}
+
+
+
+{% block title %}静态内容{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+<div class="row">
+	<div class="col-xs-7">
+		<table class="table table-hover">
+			<caption>静态内容</caption>
+			<thead>
+				<tr>
+					<th>排序</th>
+					<th>栏目</th>
+					<th>当前内容</th>
+					<th>原始内容</th>
+				</tr>
+			</thead>
+			<tbody>
+			{%for i in context%}
+				<tr>
+					<td>{{i.main_sort}}</td>
+					<td>{{i.categorys.title}}</td>
+					
+					<td><a href="{{url_for('user.edit_static_context',id=i.id)}}">{{i.html}}</a></td>
+					<td>{{i.default_html}}</td>
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-5">
+	<form action="{{url_for('user.edit_static_context_post')}}" method="post" enctype="multipart/form-data" >
+	{{form.hidden_tag()}}
+	<input type="hidden" name="id" value="{{hidden_id}}">
+	{{form.main_sort(placeholder="展示排序", class_="form-control")}}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">首页静态内容添加</h3>
+			</div>
+			<div class="panel-body">
+				
+				<div class="form-group">
+					{{form.html.label}}
+					{{form.html(class_="form-control",style="height:100px;")}}
+					<!-- {{ ckeditor.config(name='html') }} -->
+				</div>
+
+
+				<div class="form-group">
+					<input type="submit" value="更新保存" class="btn btn-primary btn-lg btn-block" >
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+</div>
+</div>
+{% endblock %}
+

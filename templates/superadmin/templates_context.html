@@ -1,0 +1,79 @@
+{% extends "superadmin/base.html" %}
+{% block title %}添加模板默认内容{% endblock %}
+{% block body %}
+{%include 'superadmin/top.html'%}
+
+
+{%include 'superadmin/left_templates.html'%}
+
+<div class="layui-body">
+  <!-- 内容主体区域 -->
+  <div style="padding:20px;">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="alert alert-success">
+    {% for category, message in messages %}
+    	<p>{{message}}</p>
+  	{%endfor%}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="layui-container">  
+      <div class="layui-row">
+        <div class="layui-col-md9">
+
+          <table class="layui-table" lay-size="sm">
+            <colgroup>
+              <col width="50">
+              <col width="50">
+              <col width="300">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>主页排序</th>
+                <th>模板</th>
+                <th>内容</th>
+              </tr> 
+            </thead>
+            <tbody>
+            {%for i in template_default%}
+              <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.main_sort}}</td>
+                <td>{{i.category_attrs.usertemplate.name}}-{{i.category_attrs.name}}</td>
+                <td>{{i.html}}</td>
+              </tr>
+            {%endfor%}
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="layui-col-md3">
+          {%include 'superadmin/include_addtemplatescontext.html'%}
+        </div>
+
+      </div> <!-- endlayui-row -->
+    </div> <!-- endlayui-container -->
+  </div>
+</div>
+  
+  {%include 'superadmin/footer.html'%}
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  // //监听提交
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
+  form.render(); //更新全部
+  form.render('select'); //刷新select选择框渲染
+});
+</script>
+{% endblock %}

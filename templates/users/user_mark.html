@@ -1,0 +1,48 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}所有文章{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+<div class="row">
+	<div class="col-xs-12">
+		<table class="table table-hover">
+			<caption>所有内容</caption>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>电话</th>
+					<th>内容</th>
+					<!-- <th>附加字段</th> -->
+					<!-- <th>附加值</th> -->
+					<th>留言时间</th>
+				</tr>
+			</thead>
+			<tbody>
+			{%for i in user_mark%}
+			
+	
+				<tr>
+					<td>{{i.name}}</td>
+					<td>{{i.phone}}</td>
+					<td>{{i.content}}</td>
+					<!-- <td>{{i.attach_key}}</td> -->
+					<!-- <td>{{i.attach_value}}</td> -->
+					<td>{{i.creation_date}}</td>					
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+</div>
+{% endblock %}
+

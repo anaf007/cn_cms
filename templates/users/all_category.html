@@ -1,0 +1,117 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}所有栏目{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+<div class="row">
+	<div class="col-xs-7">
+		<table class="table table-hover">
+			<caption>所有栏目息表</caption>
+			<thead>
+				<tr>
+					<th>栏目标题</th>
+					<th>排序</th>
+					<th>首页展示顺序</th>
+					<th>是否显示</th>
+					<th>栏目属性</th>
+					<th>上级目录</th>					
+					<th>操作</th>					
+				</tr>
+			</thead>
+			<tbody>
+			{%for i in category%}
+				<tr>
+					<td><a href="{{url_for('user.edit_category',id=i.id)}}">{{i.title}}</a></td>
+					<td>{{i.sort}}</td>
+					<td>{{i.main_sort}}</td>
+					<td>{% if i.is_enable%}
+					 <span class="glyphicon glyphicon-ok">是</span>
+					 {%else%} <span class="glyphicon glyphicon-remove">否</span>{%endif%}</td>
+					 <td>{{i.categorys_attr.name}}</td>
+					 <td>{%if i.parent_id ==1%}
+					 <span style='font-family: "黑体";font-size: 18px;color:red;'>顶级栏目</span>
+					 {%else%}
+					 {{get_category_parent_title(i.parent_id)}}
+					 {%endif%}
+					 </td>
+					 <td><a href="{{url_for('user.delete_category',id=i.id)}}">删除</a></td>
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-5">
+	<form action="" method="post">
+	{{form.hidden_tag()}}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">栏目添加</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					{{form.title.label}}
+					{{form.title(placeholder="请输入栏目标题(2-20字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.summary.label}}
+					{{form.summary(placeholder="栏目概述(0-100字选填)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.sort.label}}
+					{{form.sort(value='1000', class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.main_sort.label}}
+					{{form.main_sort(value='1000', class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.is_enable.label}}
+					{{form.is_enable(checked='checked')}}
+				</div>
+
+				<div class="form-group">
+					{{form.key.label}}
+					{{form.key(placeholder="关键字(0-80字选填用于SEO)",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.word.label}}
+					{{form.word(placeholder="描述(0-200字选填用于SEO)",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.attr.label}}
+					{{form.attr(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.pid.label}}
+					{{form.pid(class_="form-control")}}
+				</div>
+
+
+				<div class="form-group">
+					<input type="submit" value="保存添加" class="btn btn-primary btn-lg btn-block">
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+</div>
+</div>
+{% endblock %}
+

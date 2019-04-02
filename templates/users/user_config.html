@@ -1,0 +1,114 @@
+
+{% extends "users/base.html" %}
+
+
+{% block title %}系统参数设置{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='users/css/rcswitcher.min.css')}}">
+
+<script src="{{url_for('static',filename='users/js/rcswitcher.min.js')}}"></script>
+<script src="{{url_for('static',filename='users/js/rcswitcher.js')}}"></script>
+<div class="container table-responsive">
+<div class="row">
+	
+	<div class="col-xs-12">
+	<form action="{{url_for('user.user_config_post')}}" method="post" enctype="multipart/form-data" >
+	{{form.hidden_tag()}}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">系统参数设置</h3>
+			</div>
+			<div class="panel-body">
+
+
+				<div class="form-group">
+					{{form.web_name.label}}
+					{{form.web_name(placeholder="请输入网站的名称。2-30字", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.web_key.label}}
+					{{form.web_key(placeholder="请输入网站的搜索词组，用英文,逗号隔开", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.web_word.label}}
+					{{form.web_word(placeholder="请输入网站的搜索描述，10-200字", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+				<label for="image">网站LOGO</label>
+				<img src="{{url_for('public.get_images_file',filename=image)}}" >
+				<input class="form-control" id="image" name="image" type="file">
+				</div>
+
+				<div class="form-group">
+					{{form.web_logo_word.label}}
+					{{form.web_logo_word(placeholder="请输入网站的LOGO文字，2-20字", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.article_page.label}}
+					{{form.article_page(placeholder="文章分页", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.photo_page.label}}
+					{{form.photo_page(placeholder="图集分页", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.article_context.label}}
+					{{form.article_context(placeholder="文章展示静态内容，多个用‘|’隔开", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.photo_context.label}}
+					{{form.photo_context(placeholder="图集展示静态内容 ，多个用‘|’隔开", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+
+				<div class="permissions block" style="width:350px;">
+					<label>前台是否启用</label>
+					<input type="checkbox" name="state" value="1" {%if current_user.web_state %}checked="checked"{%endif%}>
+					
+				</div>
+				</div>
+	
+
+				<div class="form-group">
+					<input type="submit" value="保存添加" class="btn btn-primary btn-lg btn-block">
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+</div>
+</div>
+<script>
+	window.onload = function(){
+		$('.permissions :checkbox').rcSwitcher({
+
+			// reverse: true,
+			// inputs: true,
+			width: 60,
+			height: 32,
+			blobOffset: 5,
+			onText: '是',
+			offText: '否',
+			theme: 'dark',
+			// autoFontSize: true,
+			autoStick: true,
+
+		});
+	}
+</script>
+
+{% endblock %}
+

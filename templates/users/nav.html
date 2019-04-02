@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header"><a class="navbar-brand" href="/users">用户后台管理</a></div>
+		<div>
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">内容管理 <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						 <li><a href="/users/all_banner">首页横幅</a></li>
+						 <li><a href="/users/all_category">栏目列表</a></li>
+						 <li><a href="/users/all_category_attr">栏目属性</a></li>
+						 <li><a href="/users/all_static_context">静态内容</a></li>
+						 <li><a href="{{url_for('user.usermark')}}">用户内容(留言预约等)</a></li>
+					</ul>
+				</li>
+
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">文章管理 <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						 <li><a href="/users/all_article">所有文章</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">图集管理 <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						 <li><a href="{{url_for('user.all_photo')}}">所有图集</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理 <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						 <li><a href="{{url_for('user.user_config')}}">系统参数</a></li>
+					</ul>
+				</li>
+			</ul>			
+		</div> 
+	</div> 
+	<!-- end-container -->
+</nav>

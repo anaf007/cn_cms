@@ -1,0 +1,141 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}所有文章{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+<div class="row">
+	<div class="col-xs-7">
+		<table class="table table-hover">
+			<caption>所有文章</caption>
+			<thead>
+				<tr>
+					<th>缩略图</th>
+					<th>文章标题</th>
+					<th>作者/来源</th>
+					<th>文章描述</th>
+					<th>是否显示</th>
+					<th>浏览次数</th>
+					<th>属性</th>
+					<th>所属栏目</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			{%for i in articles()%}
+				<tr>
+					<td><img src="{{url_for('public.get_thumbnail',filename=i.image)}}" alt=""></td>
+					<td><a href="{{url_for('user.edit_article',id=i.id)}}">{{i.title}}</a></td>
+					<td>{{i.author}}/{{i.source}}</td>
+					<td>{{i.summary}}</td>
+					<td>{% if i.is_enable%}
+					 <span class="glyphicon glyphicon-ok">是</span>
+					 {%else%} <span class="glyphicon glyphicon-remove">否</span>{%endif%}</td>
+					<td>{{i.count}}</td>
+					<td>{{i.content_attrs.name}}</td>
+					<td>{{i.categorys.title}}</td>
+					<td><a href="{{url_for('user.delete_article',id=i.id)}}">删除</a></td>
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-5">
+	<form action="{{url_for('user.add_article_post')}}" method="post" enctype="multipart/form-data" >
+	{{form.hidden_tag()}}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">文章添加</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					{{form.title.label}}
+					{{form.title(placeholder="文章标题(2-20字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.summary.label}}
+					{{form.summary(placeholder="文章概述(0-80字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.author.label}}
+					{{form.author(placeholder="文章作者(选填)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.source.label}}
+					{{form.source(placeholder="来源(选填)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.is_enable.label}}
+					{{form.is_enable(checked='checked')}}
+				</div>
+
+				<div class="form-group">
+					{{form.count.label}}
+					{{form.count(placeholder="浏览次数", class_="form-control",value='100')}}
+				</div>
+
+				<div class="form-group">
+					{{form.attr.label}}
+					{{form.attr(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.category.label}}
+					{{form.category(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+				<label for="image">文章缩略图</label>
+				<input class="form-control" id="image" name="image" type="file">
+				</div>
+
+
+				<div class="form-group">
+					{{form.alt.label}}
+					{{form.alt(placeholder="图片描述(0-80字选填)",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.img_width.label}}
+					{{form.img_width(placeholder="50-150",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.static_context.label}}
+					{{form.static_context(placeholder="留空默认则读取“文章展示”的静态内容",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.content.label}}
+					{{form.content(placeholder="",class_="form-control")}}
+					{{ckeditor.config(name='content') }}
+				</div>	
+
+				
+
+							
+
+				<div class="form-group">
+					<input type="submit" value="保存添加" class="btn btn-primary btn-lg btn-block">
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+</div>
+</div>
+{% endblock %}
+

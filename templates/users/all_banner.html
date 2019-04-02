@@ -1,0 +1,87 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}所有横幅{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+<div class="row">
+	<div class="col-xs-7">
+		<table class="table table-hover">
+			<caption>所有横幅</caption>
+			<thead>
+				<tr>
+					<th>横幅标题</th>
+					<th>排序</th>
+					<th>横幅描述</th>
+					<th>图片描述</th>
+					<th>图片</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			{%for i in banner%}
+				<tr>
+					<td>{{i.title}}</td>
+					<td>{{i.sort}}</td>
+					<td>{{i.summary}}</td>
+					<td>{{i.alt}}</td>
+					<td><img src="{{url_for('public.get_images_file',filename=i.image)}}" alt="" width="200" height="120"></td>
+					<td><a href="{{url_for('user.del_banner',id=i.id)}}">删除</a></td>
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-5">
+	<form action="{{url_for('user.all_banner_post')}}" method="post" enctype="multipart/form-data" >
+	{{form.hidden_tag()}}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">横幅添加</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					{{form.title.label}}
+					{{form.title(placeholder="横幅标题(2-20字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.summary.label}}
+					{{form.summary(placeholder="横幅概述(0-80字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.alt.label}}
+					{{form.alt(placeholder="图片描述(0-80字)",class_="form-control")}}
+				</div>
+				<div class="form-group">
+					{{form.sort.label}}
+					{{form.sort(placeholder="排序必填",value='100', class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+				<label for="image">横幅图片</label>
+				<input class="form-control" id="image" name="image" type="file">
+				</div>
+
+
+				<div class="form-group">
+					<input type="submit" value="保存添加" class="btn btn-primary btn-lg btn-block">
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+</div>
+</div>
+{% endblock %}
+

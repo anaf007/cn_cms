@@ -1,0 +1,31 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}所有图集{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-danger">               
+          <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+         上传的文件过大！
+        </div><!-- end .alert -->
+      </div><!-- end col-md -->
+
+      <div class="col-md-4"></div>
+      <div class="col-md-4"><button type="button" class="btn btn-primary btn-lg btn-block" onclick="javascript:history.go(-1);">点击返回</button></div>
+      <div class="col-md-4"></div>
+    </div><!-- end row -->
+
+
+</div>
+{% endblock %}
+

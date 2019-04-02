@@ -1,0 +1,88 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}导航编辑{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+<div class="row">
+	
+	<div class="col-xs-9">
+	<form action="{{url_for('user.edit_category_post')}}" method="post" enctype="multipart/form-data" >
+	{{form.hidden_tag()}}
+	<input type="hidden" name="id" value="{{id}}">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">导航编辑</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					{{form.title.label}}
+					{{form.title(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.summary.label}}
+					{{form.summary(placeholder="横幅概述(0-80字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.key.label}}
+					{{form.key(class_="form-control")}}
+				</div>
+				<div class="form-group">
+					{{form.word.label}}
+					{{form.word(class_="form-control")}}
+				</div>
+				<div class="form-group">
+					{{form.sort.label}}
+					{{form.sort(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.is_enable.label}}
+					{{form.is_enable()}}
+				</div>
+
+				<div class="form-group">
+					{{form.main_sort.label}}
+					{{form.main_sort(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.attr.label}} <span style='color:red'>(属性需要重新选择)</span>	
+					{{form.attr(class_="form-control")}}
+				</div>
+
+				<div class="form-group" style="display:none;">
+					{{form.pid.label}}<span style='color:red'>(上级目录需要重新选择)</span>
+					{{form.pid(class_="form-control")}}
+				</div>
+
+
+				
+
+
+			
+
+				<div class="form-group">
+					<input type="submit" value="保存添加" class="btn btn-primary btn-lg btn-block">
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+
+	<div class="col-xs-2"></div>
+</div>
+</div>
+{% endblock %}
+

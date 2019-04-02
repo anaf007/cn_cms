@@ -1,0 +1,88 @@
+{% extends "superadmin/base.html" %}
+{% block title %}所有版本{% endblock %}
+{% block body %}
+{%include 'superadmin/top.html'%}
+
+
+{%include 'superadmin/left_version.html'%}
+
+<div class="layui-body">
+  <!-- 内容主体区域 -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="alert alert-success">
+    {% for category, message in messages %}
+        <p>{{message}}</p>
+    {%endfor%}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="layui-container" >  
+        <div class="layui-row" >
+            
+            <div class="layui-col-md10">
+
+              <table class="layui-table" lay-size="sm" >
+                <colgroup>
+                  <col width="20">
+                  <col width="50">
+                  <col width="50">
+                  <col width="80">
+                  <col width="30">
+                  <col width="80">
+                  <col width="100">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>版本号</th>
+                    <th>发布时间</th>
+                    <th>标题</th>
+                    <th>描述</th>
+                    <th>内容</th>
+                    
+                  </tr> 
+                </thead>
+                <tbody>
+                {%for i in version%}
+                  <tr>
+                    <td>{{i.number}}</td>
+                    <td>{{i.created_at}}</td>
+                    <td>{{i.title}}</td>
+                    <td>{{i.summary}}</td>
+                    <td>{{i.context}}</td>
+                    
+                  </tr>
+                {%endfor%}
+                
+
+                </tbody>
+              </table>
+
+            </div>
+           
+
+            <div class="layui-col-md12">
+                <div class="layui-btn-group">
+                    <button class="layui-btn">添加</button>
+                    <button class="layui-btn"><i class="layui-icon"></i></button>
+                    <button class="layui-btn"><i class="layui-icon"></i></button>
+                </div>
+                
+            </div>
+
+
+      </div> <!-- endlayui-row -->
+    </div> <!-- endlayui-container -->
+  </div>
+</div>
+  
+  {%include 'superadmin/footer.html'%}
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+});
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>success</title>
+</head>
+<body>
+	<h1>数据更新完成，</h1> <br>
+	<h1>主页地址为：{{index}}</h1> <br>
+	<h1>网站后台地址为：{{index}}users</h1> <br>
+	<h1><span style='color:red'>登录后台依次点击->内容管理->栏目列表->添加主页列表,方可进入主页。</span></h1>
+	 <!-- <a href="{{url_for('public.home')}}">点击跳转主页</a> -->
+	 <a href="{{url_for('user.members')}}">点击跳转后台</a>
+</body>
+</html>

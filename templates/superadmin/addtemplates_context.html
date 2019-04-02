@@ -1,0 +1,46 @@
+{% extends "superadmin/base.html" %}
+{% block title %}添加模板默认内容{% endblock %}
+{% block body %}
+{%include 'superadmin/top.html'%}
+
+
+{%include 'superadmin/left_templates.html'%}
+
+
+ <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding:20px;">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="alert alert-success">
+    {% for category, message in messages %}
+    	<p>{{message}}</p>
+	{%endfor%}
+   </div>
+    {% endif %}
+{% endwith %}
+
+{%include 'superadmin/include_addtemplatescontext.html'%}
+
+
+
+</div>
+</div>
+  
+  {%include 'superadmin/footer.html'%}
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  // //监听提交
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
+  form.render(); //更新全部
+  form.render('select'); //刷新select选择框渲染
+});
+</script>
+{% endblock %}

@@ -1,0 +1,93 @@
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>添加模板默认内容</legend>
+</fieldset>
+
+    <form class="layui-form" action="{{url_for('superadmin.addtemplates_context_post')}}" method='post'>
+    {{form.hidden_tag()}}
+
+ 
+
+
+   <div class="layui-form-item">
+    <label class="layui-form-label">所属栏目</label>
+    <div class="layui-inline">
+        <select id="mobanname" lay-verify="required" name="mobanname"  lay-filter="mobanname">
+          
+        </select>
+    </div>
+
+    <div class="layui-inline">
+        <select id="category" lay-verify="required" name="category">
+          
+        </select>
+    </div>
+
+      
+  </div>
+
+
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">{{form.main_sort.label}}</label>
+    <div class="layui-input-block">
+    {{form.main_sort(placeholder="首页的排序(0-1000)", class_="layui-input")}} 
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">{{form.html.label}}</label>
+    <div class="layui-input-block">
+    {{form.html(placeholder="图片路径请在其他页面提交图片复制url后再粘贴", class_="layui-textarea")}} 
+    </div>
+  </div>
+ 
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+
+<script>
+
+
+
+layui.use('form', function(){
+var form = layui.form;
+var moban = [
+{%for i in usertemplate%}
+{'id':{{i.id}},"name":"{{i.name}}", "child": [
+{%for j in i.categoryattr%}   {"id": "{{j.id}}", "name":"{{j.name}}" },
+{%endfor%} ]},
+{%endfor%}
+];
+var mobanname = document.getElementById("mobanname");
+var category = document.getElementById("category");
+
+mobanname.options[0] = new Option("请选择模板",'0');
+category.options[0] = new Option("请选择模板",'0');
+
+
+
+
+for (var i = 0; i < moban.length; i++) {
+  mobanname.options[mobanname.length] = new Option(moban[i].name,moban[i].id);
+  form.on('select(mobanname)', function(data){
+    category.options.length = 0;
+    // category.options[0] = new Option("市",'');
+    for (var j = 0; j < moban[mobanname.selectedIndex-1].child.length; j++) {
+      category.options[category.length] = new Option(moban[mobanname.selectedIndex-1].child[j].name,moban[mobanname.selectedIndex-1].child[j].id)
+      // form.render(); 
+    }
+    form.render(); 
+  });
+}
+
+
+
+form.render(); 
+});
+</script>

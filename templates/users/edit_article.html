@@ -1,0 +1,109 @@
+
+{% extends "users/base.html" %}
+
+{% block cheditor %}
+{{ckeditor.load()}}
+{%endblock%}
+
+{% block title %}文章编辑{% endblock %}
+
+{% block body %}
+
+{%include 'users/nav.html'%}
+<div class="container table-responsive" style="width:800px;margin:0 auto;">
+<div class="row">
+	
+	<div class="col-xs-12">
+	<form action="{{url_for('user.edit_save_article_post')}}" method="post" enctype="multipart/form-data" >
+	{{form.hidden_tag()}}
+	<input type="hidden" name="id" value="{{id}}">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">文章更新</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					{{form.title.label}}
+					{{form.title(placeholder="文章标题(2-20字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.summary.label}}
+					{{form.summary(placeholder="文章概述(0-80字)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.author.label}}
+					{{form.author(placeholder="文章作者(选填)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.source.label}}
+					{{form.source(placeholder="来源(选填)", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.is_enable.label}}
+					{{form.is_enable(checked='checked')}}
+				</div>
+
+				<div class="form-group">
+					{{form.count.label}}
+					{{form.count(placeholder="浏览次数", class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.attr.label}}
+					{{form.attr(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.category.label}}
+					{{form.category(class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+				
+				<label for="image">文章缩略图</label>
+				<img src="{{url_for('public.get_thumbnail',filename=image)}}" >
+				<input class="form-control" id="image" name="image" type="file">
+
+				</div>
+
+
+				<div class="form-group">
+					{{form.alt.label}}
+					{{form.alt(placeholder="图片描述(0-80字选填)",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.img_width.label}}
+					{{form.img_width(placeholder="50-150",class_="form-control")}}
+				</div>
+
+				<div class="form-group">
+					{{form.static_context.label}}
+					{{form.static_context(placeholder="留空默认则读取“文章展示”的静态内容",class_="form-control")}}
+				</div>
+
+				
+
+				<div class="form-group">
+					{{form.content.label}}
+					{{form.content(placeholder="",class_="form-control")}}
+					{{ckeditor.config(name='content') }}
+				</div>				
+
+				<div class="form-group">
+					<input type="submit" value="保存添加" class="btn btn-primary btn-lg btn-block">
+				</div>
+			</div>
+		</div>
+
+	</form>
+		
+	</div>
+</div>
+</div>
+{% endblock %}
+

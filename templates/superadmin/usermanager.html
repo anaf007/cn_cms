@@ -1,0 +1,16 @@
+{% extends "superadmin/base.html" %}
+{% block title %}用户管理{% endblock %}
+{% block body %}
+{%include 'superadmin/top.html'%}
+<!-- 左侧内容 -->
+{%include 'superadmin/left_users.html'%}
+
+
+ <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">内容主体区域</div>
+  </div>
+  
+  {%include 'superadmin/footer.html'%}
+
+{% endblock %}

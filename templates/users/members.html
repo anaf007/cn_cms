@@ -1,0 +1,12 @@
+{% extends "users/base.html" %}
+{% block title %}用户中心{% endblock %}
+{% block body %}
+{%include 'users/nav.html'%}
+<div class="container table-responsive">
+
+    <h1>欢迎 {{ current_user.first_name }}</h1>
+    <h3>这里是您的主页.</h3>
+    <h4>请选择顶部的菜单进行操作吧.</h4>
+</div>
+{% endblock %}
+

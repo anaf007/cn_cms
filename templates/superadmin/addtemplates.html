@@ -1,0 +1,64 @@
+{% extends "superadmin/base.html" %}
+{% block title %}添加模板{% endblock %}
+{% block body %}
+{%include 'superadmin/top.html'%}
+
+
+{%include 'superadmin/left_templates.html'%}
+
+
+ <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding:20px;">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="alert alert-success">
+    {% for category, message in messages %}
+    	<p>{{message}}</p>
+	{%endfor%}
+   </div>
+    {% endif %}
+{% endwith %}
+
+
+
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>添加模板</legend>
+</fieldset>
+    <form class="layui-form" action="" method='post'>
+    {{form.hidden_tag()}}
+  <div class="layui-form-item">
+    <label class="layui-form-label">{{form.title.label}}</label>
+    <div class="layui-input-block">
+    {{form.title(placeholder="请输入模板名称(2-20字)", class_="layui-input",autocomplete="off")}}
+      <!-- <input type="text" name="title" placeholder="请模板名称(2-20字)"  class="layui-input"> -->
+    </div>
+  </div>
+ 
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+  
+  {%include 'superadmin/footer.html'%}
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  //监听提交
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
+});
+</script>
+{% endblock %}

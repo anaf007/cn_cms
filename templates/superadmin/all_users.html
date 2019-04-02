@@ -1,0 +1,94 @@
+{% extends "superadmin/base.html" %}
+{% block title %}所有用户{% endblock %}
+{% block body %}
+{%include 'superadmin/top.html'%}
+
+
+{%include 'superadmin/left_users.html'%}
+
+<div class="layui-body">
+  <!-- 内容主体区域 -->
+  <div style="padding:10px;">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="alert alert-success">
+    {% for category, message in messages %}
+    	<p>{{message}}</p>
+  	{%endfor%}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="layui-container">  
+      	<div class="layui-row">
+		    
+	        <div class="layui-col-md12">
+
+	          <table class="layui-table" lay-size="sm">
+	            <colgroup>
+	              <col width="20">
+	              <col width="50">
+	              <col width="50">
+	              <col width="80">
+	              <col width="30">
+	              <col width="80">
+	              <col width="100">
+	            </colgroup>
+	            <thead>
+	              <tr>
+	                <th>ID</th>
+	                <th>用户名</th>
+	                <th>手机号码</th>
+	                <th>创建时间</th>
+	                <th>允许登录</th>
+	                <th>模板</th>
+	                <th>操作</th>
+	              </tr> 
+	            </thead>
+	            <tbody>
+	            {%for i in all_users%}
+	              <tr>
+	                <td>{{i.id}}</td>
+	                <td>{{i.username}}</td>
+	                <td>{{i.phone}}</td>
+	                <td>{{i.created_at}}</td>
+	                <td>{{i.active}}</td>
+	                <td>{{i.usertemplate.name}}</td>
+	                <td>
+	                	<button class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
+	                	<!-- <button class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button> -->
+	                </td>
+	              </tr>
+	            {%endfor%}
+	            
+
+	            </tbody>
+	          </table>
+
+	        </div>
+	       
+
+	        <div class="layui-col-md12">
+		        <div class="layui-btn-group">
+			        <button class="layui-btn">添加</button>
+				    <button class="layui-btn"><i class="layui-icon"></i></button>
+				    <button class="layui-btn"><i class="layui-icon"></i></button>
+	  			</div>
+		    	
+		    </div>
+
+
+      </div> <!-- endlayui-row -->
+    </div> <!-- endlayui-container -->
+  </div>
+</div>
+  
+  {%include 'superadmin/footer.html'%}
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+});
+</script>
+{% endblock %}
